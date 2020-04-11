@@ -2,6 +2,8 @@
 #include<fstream>
 #include<string>
 #include<climits>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int* read_file(const char* file_name, int& size){
@@ -55,13 +57,13 @@ void merge(int* list,const int left,const int right){
 	for(int i=left;i<=right;++i){
 		if(lsub[indexl]<=rsub[indexr]){
 			list[i]=lsub[indexl];
-			++indexl;	
+			++indexl;
 		}
 		else{
 			list[i]=rsub[indexr];
 			++indexr;
 		}
-	}	
+	}
 	delete []lsub;
 	delete []rsub;
 }
@@ -82,7 +84,13 @@ void merge_sort(int* list, int size){
 int main(int argc, char **argv){
 	int size = 0;
 	int* list = read_file(argv[1],size);
+	clock_t start,end;
+  double cpu_time_used;
+	start = clock();
 	merge_sort(list,size);
+	end = clock();
+	cpu_time_used = (double(end - start)) / CLOCKS_PER_SEC;
+  cout<<"Merge sort take "<<cpu_time_used<<" s to finish."<<endl;
 	write_file(list,size);
 	delete [] list;
 	return 0;
