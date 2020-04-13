@@ -21,6 +21,20 @@ int* read_file(const char* file_name, int& size){
 	}
 	return list;
 }
+void write_file(const int* list, int size){
+	fstream file;
+	file.open("output.txt",ios::out);
+	if(!file){
+		cout<<"Can not open file!"<<endl;
+		exit(1);
+	}
+	file<<size<<endl;
+	for(int i=0;i<size;++i){
+		file<<list[i]<<endl;
+	}
+	file.close();
+
+}
 void quickSort(int* n,const int left,const int right){
   if(left<right){
     int i=left;
@@ -40,8 +54,8 @@ void quickSort(int* n,const int left,const int right){
 }
 
 int main(int argc, char **argv){
+	if(argc<2){cout<<"Wrong parameters. Please see the user guide in README."<<endl;exit(1);}
   int size;
-  cout<<argv[1]<<endl;
   int* list= read_file(argv[1],size);
 
   clock_t start,end;
@@ -52,5 +66,7 @@ int main(int argc, char **argv){
   end = clock();
   cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
   cout<<"Quick sort take "<<cpu_time_used<<" s to finish."<<endl;
+	write_file(list,size);
   delete [] list;
+	return 0;
 }
