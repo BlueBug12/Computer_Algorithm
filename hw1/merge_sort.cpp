@@ -82,6 +82,7 @@ void merge_sort(int* list, int size){
 }
 
 int main(int argc, char **argv){
+	if(argc<2){cout<<"Wrong parameters. Please see the user guide in README."<<endl;exit(1);}
 	int size = 0;
 	int* list = read_file(argv[1],size);
 	clock_t start,end;
