@@ -18,10 +18,11 @@ quick_insertion.exe input.txt n
 ```
 n is the length of the sublist to be sorted by insertion sort. For example:
 ```quick_insertion.exe input.txt 10```
+
 #### The ouput file would be _`ouput.txt`_
 (with the number of keys sorted in the first line, followed by the sorted keys with one key in each line.)
 
-#Insertion sort
+# Insertion sort
 ```cpp
 void insertion(int* list, const int size){
 	int key,j;
@@ -41,7 +42,7 @@ The basic idea of insertion is to divide the list into two part: unsorted one(ri
 * Time complexity: _O(n^2)_
 * Space complexity: _O(1)_
 
-#Quick sort
+# Quick sort
 ```cpp
 void quickSort(int* n,const int left,const int right){
   if(left<right){
@@ -66,7 +67,7 @@ First, we pick the `pivot` term from the left-most element in current list and f
 
 * Time complexity: _O(n^2)_ (when the list is sorted)
 * Space complexity: _O(1)_
-#Quick-insertion sort
+# Quick-insertion sort
 ```cpp
 void quickSort(int* n,const int left,const int right){
   if(right-left<=10000){//length of the list to use insertion sort
