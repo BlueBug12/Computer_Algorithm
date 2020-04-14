@@ -49,7 +49,7 @@ void write_file(const int* list, int size){
 	file.close();
 
 }
-void quickSort(int* n,const int left,const int right,const int length){
+void quick_insertion_sort(int* n,const int left,const int right,const int length){
   if(right-left<=length){
     insertion(n+left,right-left+1);
     return ;
@@ -66,8 +66,8 @@ void quickSort(int* n,const int left,const int right,const int length){
     }while(i<j);
 
     swap(n[left],n[j]);
-    quickSort(n,left,j-1,length);
-    quickSort(n,j+1,right,length);
+    quick_insertion_sort(n,left,j-1,length);
+    quick_insertion_sort(n,j+1,right,length);
   }
 }
 
@@ -81,7 +81,7 @@ int main(int argc, char **argv){
   double cpu_time_used;
 
   start = clock();
-  quickSort(list,0,size-1,length);
+  quick_insertion_sort(list,0,size-1,length);
   end = clock();
   cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
   cout<<"Quick-insertion sort take "<<cpu_time_used<<" s to finish."<<endl;

@@ -10,6 +10,7 @@
 ```
 n is the length of the sublist to be sorted by insertion sort. For example:
  ```./quick_insertion.exe input.txt 10 ```
+
 * for windows:
 ```
 insertion_sort.exe input.txt
@@ -67,6 +68,7 @@ First, we pick the `pivot` term from the left-most element in current list and f
 
 * Time complexity: _O(n^2)_ (when the list is sorted)
 * Space complexity: _O(1)_
+
 # Quick-insertion sort
 ```cpp
 void quickSort(int* n,const int left,const int right){
@@ -90,8 +92,8 @@ void quickSort(int* n,const int left,const int right){
     quickSort(n,j+1,right);
   }
 }
-
 ```
+
 It's a combination of insertion sort and quick sort. What we need to do is putting the insertion function into quick sort, and determining at what length of the sublist we need to use insertion sort instead of the quick sort.
 
 * Time complexity: _O(n^2)_ (when the list is sorted)
