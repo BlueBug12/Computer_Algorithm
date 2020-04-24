@@ -23,7 +23,16 @@ int* read_file(const char* file_name, int* size, int* rank){
 	}
 	return list;
 }
-
+void write_file(const int size,const int rank,const int target){
+	fstream file;
+	file.open("output.txt",ios::out);
+	if(!file){
+		cout<<"Can not open file!"<<endl;
+		exit(1);
+	}
+	file<<size<<endl<<rank<<endl<<target<<endl;
+	file.close();
+}
 int insertion_sort(int* list, const int size){
 	int key,j;
 	for(int i=1;i<size;++i){
@@ -102,9 +111,11 @@ int main(int argc, char **argv){
     cout<<"Invalid rank!"<<endl;
     return 1;
   }
-  int i = selection(list,size,--rank);
-
+  int i = selection(list,size,rank-1);
+	cout<<size<<endl;
+	cout<<rank<<endl;
   cout << i << endl;
+	write_file(size,rank,i);
   delete[] list;
   return 0;
 }

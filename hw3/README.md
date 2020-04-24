@@ -163,7 +163,7 @@ Example format of `selection_output.txt`:
 ```output
 15 //number of elements
 8  //target rank
-31  //k-th smallest value
+31 //k-th smallest value
 ```
 ### Algorithm steps:
 1. Divide the n elements of the input array into n/5 groups of 5 elements each and at most one group made up of the remaining n mod 5 elements.
