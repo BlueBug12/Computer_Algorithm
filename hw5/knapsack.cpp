@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 //define the item's value and weight as a structure
@@ -40,7 +41,7 @@ item* read_file(const char* file_name, int* n, int* w){
 	return list;
 }
 
-void write_file(const int value, const int* list, const int size){
+void write_file(const int value, const vector<int>& ans){
 	fstream file;
 	file.open("output.txt",ios::out);
 	if(!file){
@@ -48,9 +49,13 @@ void write_file(const int value, const int* list, const int size){
 		exit(1);
 	}
   file<<"Total revenue = "<<value<<endl;
+  cout<<"Total revenue = "<<value<<endl;
   file<<"Selected item : ";
-  for(int i=0;i<size;++i){
-    file<<list[i]<<" ";//print the selected items
+  cout<<"Selected item : ";
+  //to reverse the back trace answer, start from the tail
+  for(int i=ans.size()-1;i>=0;--i){
+    file<<ans.at(i)<<" ";
+    cout<<ans.at(i)<<" ";
   }
 	file<<endl;
 	file.close();
@@ -58,18 +63,19 @@ void write_file(const int value, const int* list, const int size){
 
 void knapsack(int n, int w, item* list, int* cost, item** record){
   for(int i=0;i<n;++i){
+    //the second for loop start from the tail because we need to avoid taking item more than once
     for(int j=w;j>=list[i].weight;--j){
+      //cost[j]=max(cost[j-list[i].weight]+list[i].value,cost[j]);
       if(cost[j-list[i].weight]+list[i].value>cost[j]){
-        cout<<cost[j-list[i].weight]<<","<<list[i].value<<endl;
+        //choose the item and deduct the total weight
         cost[j] = cost[j-list[i].weight] + list[i].value;
         //record the chosen item by pointer
-        record[j-list[i].weight]=list+i;
+        record[j]=list+i;
       }
     }
-    for(int j=0;j<i;++j){cout<<cost[j]<<" ";}
-    cout<<endl;
   }
 }
+
 int main(int argc, char** argv){
   if(argc!=2){
     cout<<"Wrong parameters!"<<endl;
@@ -77,31 +83,24 @@ int main(int argc, char** argv){
   }
   int n,w;
   item* list=read_file(argv[1],&n,&w);
-  cout<<"weight: ";
-  for(int i=0;i<n;++i){
-    cout<<list[i].weight<<" ";
-  }
-  cout<<endl;
+
   //create and initialize the record list
-  item** record = new item*[w];
+  item** record = new item*[w+1];
   for(int i=0;i<w;++i){record[i]=NULL;}
 
   //creat and initialize the cost list
-  int* cost=new int[n];
-  for(int i=0;i<n;++i){cost[i]=0;}
+  int* cost=new int[w+1];
+  for(int i=0;i<w;++i){cost[i]=0;}
 
   knapsack(n,w,list,cost,record);
 
-  for(int i=0;i<w;++i){
-    if(record[i]!=NULL)
-      cout<<record[i]->weight<<" ";
-    else{
-      cout<<"0 ";;
-    }
+  int total_weight=w;
+  vector<int>ans;
+  //back trace the answer and push it in vector
+  while(total_weight>0){
+    ans.push_back(record[total_weight]->index);
+    total_weight-=record[total_weight]->weight;
   }
-  cout<<endl;
-  for(int i=0;i<n;++i){
-    cout<<cost[i]<<" ";
-  }
-  cout<<endl;
+
+  write_file(cost[w],ans);
 }
