@@ -103,4 +103,7 @@ int main(int argc, char** argv){
   }
 
   write_file(cost[w],ans);
+  delete[] record;
+  delete[] cost;
+  delete[] list;
 }
