@@ -9,6 +9,8 @@ After generating the executable file, please use the following command to execut
 ```
 And the ouput would be stored in `output.txt`
 * My environment: gcc 7.4.0
+### Problem description
+Give a dynamic-programming solution to the _0_1 knapsack_ problem that runs in _O(nW)_ time, where nn is the number of items and _W_ is the maximum weight of items that the thief can put in his knapsack.
 ### Algorithm analysis
 Use dynamic programming to solve the problem:
 1. Optimal structure
